@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { CreateComponent } from './create/create.component';
 import { ProfileRoutingModule } from './/profile-routing.module';
 import { VerticalStepperComponent } from './create/vertical-stepper/vertical-stepper.component';
@@ -13,8 +15,20 @@ import { AchievementsComponent } from './create/forms/achievements/achievements.
 @NgModule({
   imports: [
     CommonModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    FormsModule, 
+    ReactiveFormsModule
   ],
-  declarations: [CreateComponent, VerticalStepperComponent, PersonalInformationComponent, ProgressStatusComponent, EducationDetailsComponent, FirmDescriptionComponent, NotableMattersComponent, AchievementsComponent]
+
+  declarations: [
+    CreateComponent,
+    VerticalStepperComponent,
+    PersonalInformationComponent,
+    ProgressStatusComponent,
+    EducationDetailsComponent,
+    FirmDescriptionComponent,
+    NotableMattersComponent,
+    AchievementsComponent]
 })
+
 export class ProfileModule { }
