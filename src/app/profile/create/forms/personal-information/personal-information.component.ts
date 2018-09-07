@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import { PersonalInformationService } from './personal-information.service';
+import { PersonalInformation } from './personal-information.model';
+import { ProfileResource } from '../../../profile.resource';
+import { CreateService } from '../../create.service';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-information',
@@ -7,20 +11,16 @@ import {FormBuilder, FormGroup} from '@angular/forms';
   styleUrls: ['./personal-information.component.scss']
 })
 export class PersonalInformationComponent implements OnInit {
-  personalDetailsFormGroup: FormGroup;
-
-  constructor(private fb: FormBuilder) { }
+  personalInformation: PersonalInformation
+  personalInfoForm: FormGroup
+  
+  constructor(private createService: CreateService,
+    private personalInfoService: PersonalInformationService
+    ) { }
 
   ngOnInit() {
-    this.personalDetailsFormGroup = this.fb.group({
-      name: this.createFormGroup()
-    })
-  }
-
-  private createFormGroup = () => {
-    return new FormGroup({
-
-    });
+    this.personalInformation = this.createService.getAttorneyProfile().personalInformation;
+    this.personalInfoForm = this.personalInfoService.createFormGroup(this.personalInformation);
   }
 
 }
