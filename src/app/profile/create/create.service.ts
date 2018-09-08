@@ -6,14 +6,12 @@ import { AttorneyProfile } from '../profile.model';
   providedIn: 'root'
 })
 export class CreateService {
-  private attorneyProfile: AttorneyProfile
+  private attorneyProfile: AttorneyProfile;
 
   constructor(private profileService: ProfileResource) { }
 
   public fetchAttorneyProfile() {
-    console.log('Profile fetching...')
     this.attorneyProfile = this.profileService.getAttorneyProfile();
-    console.log('Profile fetched.')
   }
 
   public getAttorneyProfile(): AttorneyProfile {

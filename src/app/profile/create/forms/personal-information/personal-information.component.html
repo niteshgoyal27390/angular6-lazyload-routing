@@ -1,10 +1,90 @@
-<form [formGroup]="personalInfoForm">
-  <div class="form-group">
-    <label for="first-name">First Name</label>
-    <input type="text" class="form-control" id="first-name" placeholder="First Name" formControlName="firstName">
+<form [formGroup]="personalInfoForm" (ngSubmit)="onSubmitPersonalInformation()">
+  <h4>Contact Details</h4>
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <label for="first-name">Your Name<span class="required">*</span></label>
+      <input type="text" class="form-control" id="first-name" placeholder="First Name" formControlName="firstName"
+        [ngClass]="{ 'is-invalid': submitted && formControls.firstName.errors }">
+      <div *ngIf="submitted && formControls.firstName.errors" class="invalid-feedback">
+        <div *ngIf="formControls.firstName.errors.required">First Name is required</div>
+      </div>
+    </div>
+    <div class="form-group col-sm-6">
+      <label for="last-name" class="invisible">Last Name</label>
+      <input type="text" class="form-control" id="last-name" placeholder="Last Name" formControlName="lastName"
+        [ngClass]="{ 'is-invalid': submitted && formControls.lastName.errors }">
+      <div *ngIf="submitted && formControls.lastName.errors" class="invalid-feedback">
+        <div *ngIf="formControls.lastName.errors.required">Last Name is required</div>
+      </div>
+    </div>
   </div>
   <div class="form-group">
-    <label for="last-name">Last Name</label>
-    <input type="text" class="form-control" id="last-name" placeholder="Last Name" formControlName="lastName">
+    <label>Jurisdiction<span class="required">*</span></label>
+    <input type="text" formControlName="jurisdiction" class="form-control" placeholder="For ex. New York" [ngClass]="{ 'is-invalid': submitted && formControls.jurisdiction.errors }" />
+    <div *ngIf="submitted && formControls.jurisdiction.errors" class="invalid-feedback">
+      <div *ngIf="formControls.jurisdiction.errors.required">Jurisdiction is required</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>Email ID<span class="required">*</span></label>
+    <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.email.errors }" />
+    <div *ngIf="submitted && formControls.email.errors" class="invalid-feedback">
+      <div *ngIf="formControls.email.errors.required">Email is required</div>
+      <div *ngIf="formControls.email.errors.email">Email must be a valid email address</div>
+    </div>
+  </div>
+  <div class="row" formGroupName="phoneNumber">
+    <div class="form-group col-sm-4">
+      <label for="phone-number">Phone Number<span class="required">*</span></label>
+      <select class="form-control" id="phone-number" formControlName="type">
+        <option value="cell">Cell</option>
+        <option value="home">Home</option>
+        <option value="office">Office</option>
+      </select>
+    </div>
+    <div class="form-group col-sm-5">
+      <label for="number" class="invisible">Number<span class="required">*</span></label>
+      <input type="text" formControlName="number" class="form-control" [ngClass]="{ 'is-invalid': submitted && formControls.phoneNumber.controls.number.errors }" />
+      <div *ngIf="submitted && formControls.phoneNumber.controls.number.errors" class="invalid-feedback">
+        <div *ngIf="formControls.phoneNumber.controls.number.errors.required">Phone number is required</div>
+      </div>
+    </div>
+    <div class="form-group col-sm-3">
+      <label for="extension" class="invisible">Ext</label>
+      <input class="form-control" formControlName="ext" type="number" placeholder="Ext">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="fax-number">Fax Number</label>
+    <input type="text" formControlName="faxNumber" class="form-control">
+  </div>
+  <h4>About Yourself</h4>
+  <div class="form-group avatar-upload">
+    <p>Profile Image</p>
+    <div class="avatar-edit">
+      <input type="file" id="imageUpload" (change)="onSelectFile($event)" accept=".png, .jpg, .jpeg">
+      <label for="imageUpload"></label>
+    </div>
+    <div class="avatar-preview">
+      <img [src]="url" height="200">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="headline">Headline</label>
+    <textarea class="form-control" id="headline" rows="3" placeholder="Write a message that you would like to highlight in your profile"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="describe-yourself">Describe Yourself</label>
+    <textarea class="form-control" id="headline" rows="5" placeholder="Describe your strengths and skills, career highlights or accompolishments"></textarea>
+  </div>
+  <div class="form-group">
+    <label for="language">Language Spoken</label>
+    <ng-select [searchable]="false" formControlName="agree">
+        <ng-option [value]="true">Yes</ng-option>
+        <ng-option [value]="false">No</ng-option>
+    </ng-select>
+  </div>
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary btn-block">Continue</button>
   </div>
 </form>

@@ -7,15 +7,11 @@ import { CreateService } from './create.service';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss']
 })
-export class CreateComponent implements OnInit,AfterViewInit {
+export class CreateComponent implements OnInit {
 
   constructor(private createService: CreateService) { }
 
   ngOnInit() {
     this.createService.fetchAttorneyProfile();
-  }
-
-  ngAfterViewInit(){
-    
   }
 }

@@ -8,10 +8,10 @@ import { NotableMattersComponent } from './create/forms/notable-matters/notable-
 import { FirmDescriptionComponent } from './create/forms/firm-description/firm-description.component';
 import { EducationDetailsComponent } from './create/forms/education-details/education-details.component';
 
-const routes:Routes = [
+const routes: Routes = [
   {
-    path:'create',
-    component:CreateComponent,
+    path: 'create',
+    component: CreateComponent,
     children: [
       {
         path: 'personal-information',
@@ -42,6 +42,6 @@ const routes:Routes = [
     RouterModule.forChild(routes)
   ],
   declarations: [],
-  exports:[RouterModule]
+  exports: [RouterModule]
 })
 export class ProfileRoutingModule { }

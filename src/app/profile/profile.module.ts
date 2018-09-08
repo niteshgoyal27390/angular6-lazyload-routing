@@ -15,9 +15,18 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ProfileRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule
   ],
-  declarations: [CreateComponent, VerticalStepperComponent, PersonalInformationComponent, ProgressStatusComponent, EducationDetailsComponent, FirmDescriptionComponent, NotableMattersComponent, AchievementsComponent]
+  declarations: [
+    CreateComponent,
+    VerticalStepperComponent,
+    PersonalInformationComponent,
+    ProgressStatusComponent,
+    EducationDetailsComponent,
+    FirmDescriptionComponent,
+    NotableMattersComponent,
+    AchievementsComponent
+  ]
 })
 export class ProfileModule { }
