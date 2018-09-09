@@ -19,7 +19,7 @@ export class PersonalInformationService {
       email: new FormControl(attorney.email, [Validators.required, Validators.email]),
       description: new FormControl(attorney.description, [Validators.required, Validators.maxLength(255)]),
       jurisdiction: new FormControl(attorney.jurisdiction, Validators.required),
-      contactDetails: new FormArray([]),
+      contactDetails: new FormArray(this.createContactDetailFormGroups(attorney.contactDetails)),
       faxNumber: new FormControl(attorney.faxNumber),
       workExps: new FormArray(this.createWorkExperienceFormGroups(attorney.workExps))
     });
@@ -27,36 +27,63 @@ export class PersonalInformationService {
 
   private createContactDetailFormGroups(contactDetails: ContactDetail[]): FormGroup[] {
     contactDetails.forEach((contactDetail: ContactDetail) => {
-      this.contactDetails.push(
-        new FormGroup({
-          contactType: new FormControl(contactDetail.type, Validators.required),
-          contactNumber: new FormControl(contactDetail.number, Validators.required),
-          contactExt: new FormControl(contactDetail.ext)
-        })
-      );
+      if (this.contactDetails === undefined) {
+        this.contactDetails = [
+          new FormGroup({
+            contactType: new FormControl(contactDetail.type, Validators.required),
+            contactNumber: new FormControl(contactDetail.number, Validators.required),
+            contactExt: new FormControl(contactDetail.ext)
+          })
+        ];
+      } else {
+        this.contactDetails.push(
+          new FormGroup({
+            contactType: new FormControl(contactDetail.type, Validators.required),
+            contactNumber: new FormControl(contactDetail.number, Validators.required),
+            contactExt: new FormControl(contactDetail.ext)
+          })
+        );
+      }
     });
     return this.contactDetails;
   }
 
   private createWorkExperienceFormGroups(workExps: WorkExperience[]): FormGroup[] {
     workExps.forEach((workExp: WorkExperience) => {
-      this.workExps.push(
-        new FormGroup({
-          role: new FormControl(workExp.role, Validators.required),
-          firmName: new FormControl(workExp.firmName, Validators.required),
-          location: new FormControl(workExp.location),
-          fromDate: new FormGroup({
-            fromMonth: new FormControl(workExp.fromDate.month),
-            fromYear: new FormControl(workExp.fromDate.year)
-          }),
-          toDate: new FormGroup({
-            toMonth: new FormControl(workExp.toDate.month),
-            toYear: new FormControl(workExp.toDate.year)
+      if (this.workExps === undefined) {
+        this.workExps = [
+          new FormGroup({
+            role: new FormControl(workExp.role, Validators.required),
+            firmName: new FormControl(workExp.firmName, Validators.required),
+            location: new FormControl(workExp.location),
+            fromDate: new FormGroup({
+              fromMonth: new FormControl(workExp.fromDate.month),
+              fromYear: new FormControl(workExp.fromDate.year)
+            }),
+            toDate: new FormGroup({
+              toMonth: new FormControl(workExp.toDate.month),
+              toYear: new FormControl(workExp.toDate.year)
+            })
           })
-        })
-      );
+        ];
+      } else {
+        this.workExps.push(
+          new FormGroup({
+            role: new FormControl(workExp.role, Validators.required),
+            firmName: new FormControl(workExp.firmName, Validators.required),
+            location: new FormControl(workExp.location),
+            fromDate: new FormGroup({
+              fromMonth: new FormControl(workExp.fromDate.month),
+              fromYear: new FormControl(workExp.fromDate.year)
+            }),
+            toDate: new FormGroup({
+              toMonth: new FormControl(workExp.toDate.month),
+              toYear: new FormControl(workExp.toDate.year)
+            })
+          })
+        );
+      }
     });
     return this.workExps;
   }
 }
-

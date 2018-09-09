@@ -26,6 +26,7 @@ export class PersonalInformationComponent implements OnInit {
   ngOnInit() {
     this.personalInformation = this.createService.getAttorneyProfile().personalInformation;
     this.personalInfoForm = this.personalInfoService.createFormGroup(this.personalInformation);
+    console.log(this.personalInfoForm);
   }
 
   get formControls() {
@@ -36,7 +37,7 @@ export class PersonalInformationComponent implements OnInit {
     return this.personalInfoForm.get('workExps') as FormArray;
   }
 
-  get contactDetailss() {
+  get contactDetails() {
     return this.personalInfoForm.get('contactDetails') as FormArray;
   }
 
@@ -78,9 +79,9 @@ export class PersonalInformationComponent implements OnInit {
 
   private createcontactDetails(): FormGroup {
     return new FormGroup({
-      type: new FormControl('', Validators.required),
-      number: new FormControl('', [Validators.required, Validators.maxLength(10)]),
-      ext: new FormControl('')
+      contactType: new FormControl('', Validators.required),
+      contactNumber: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      contactExt: new FormControl('')
     });
   }
 
