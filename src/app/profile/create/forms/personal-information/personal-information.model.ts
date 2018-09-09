@@ -5,12 +5,28 @@ export class PersonalInformation {
     description: String;
     jurisdiction: String;
     headline: String;
-    phoneNumber: PhoneNumber;
+    contactDetails: ContactDetail[];
     faxNumber: String;
+    workExps: WorkExperience[];
 }
 
-export class PhoneNumber {
+export class ContactDetail {
     type: String;
     number: String;
     ext: number;
 }
+
+export class WorkExperience {
+    role: String;
+    firmName: String;
+    location: String;
+    fromDate: MonthYear;
+    toDate: MonthYear;
+}
+
+export class MonthYear {
+    month: number;
+    year: number;
+}
+
+

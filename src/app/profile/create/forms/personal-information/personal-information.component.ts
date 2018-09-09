@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PersonalInformationService } from './personal-information.service';
 import { PersonalInformation } from './personal-information.model';
-import { ProfileResource } from '../../../profile.resource';
 import { CreateService } from '../../create.service';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,8 +13,10 @@ import { Router } from '@angular/router';
 export class PersonalInformationComponent implements OnInit {
   personalInformation: PersonalInformation;
   personalInfoForm: FormGroup;
-  submitted = false;
-  url = 'img/avatar.png';
+  submitted: Boolean = false;
+  workExpList: FormArray;
+  contactDetailList: FormArray;
+  url: String = '';
 
   constructor(private createService: CreateService,
     private personalInfoService: PersonalInformationService,
@@ -31,6 +32,24 @@ export class PersonalInformationComponent implements OnInit {
     return this.personalInfoForm.controls;
   }
 
+  get workExps() {
+    return this.personalInfoForm.get('workExps') as FormArray;
+  }
+
+  get contactDetailss() {
+    return this.personalInfoForm.get('contactDetails') as FormArray;
+  }
+
+  private addWorkExp() {
+    this.workExpList = this.personalInfoForm.get('workExps') as FormArray;
+    this.workExpList.push(this.createWorkExp());
+  }
+
+  private addContactDetail() {
+    this.contactDetailList = this.personalInfoForm.get('contactDetails') as FormArray;
+    this.contactDetailList.push(this.createcontactDetails());
+  }
+
   private onSubmitPersonalInformation() {
     this.submitted = true;
     console.log(this.personalInfoForm);
@@ -41,11 +60,35 @@ export class PersonalInformationComponent implements OnInit {
     console.log('Personal Info Submited');
   }
 
+  private createWorkExp(): FormGroup {
+    return new FormGroup({
+      role: new FormControl('', Validators.required),
+      firmName: new FormControl('', Validators.required),
+      location: new FormControl(''),
+      fromDate: new FormGroup({
+        fromMonth: new FormControl(''),
+        fromYear: new FormControl('')
+      }),
+      toDate: new FormGroup({
+        toMonth: new FormControl(''),
+        toYear: new FormControl('')
+      })
+    });
+  }
+
+  private createcontactDetails(): FormGroup {
+    return new FormGroup({
+      type: new FormControl('', Validators.required),
+      number: new FormControl('', [Validators.required, Validators.maxLength(10)]),
+      ext: new FormControl('')
+    });
+  }
+
   private onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]); // read file as data url
-      reader.onload = (event) => { // called once readAsDataURL is completed
+      reader.onload = (event: any) => { // called once readAsDataURL is completed
         this.url = event.target.result;
       };
     }
