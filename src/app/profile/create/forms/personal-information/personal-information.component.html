@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="personalInfoForm">
 
   <form [formGroup]="personalInfoForm" (ngSubmit)="onSubmitPersonalInformation()">
 

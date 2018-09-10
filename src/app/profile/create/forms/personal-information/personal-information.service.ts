@@ -12,7 +12,7 @@ export class PersonalInformationService {
 
   constructor() { }
 
-  public createFormGroup(attorney: PersonalInformation): FormGroup {
+  public createPersonalInfoFormGroup(attorney: PersonalInformation): FormGroup {
     return new FormGroup({
       firstName: new FormControl(attorney.firstName, Validators.required),
       lastName: new FormControl(attorney.lastName, Validators.required),

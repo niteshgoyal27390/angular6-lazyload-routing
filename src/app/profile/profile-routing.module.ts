@@ -33,6 +33,10 @@ const routes: Routes = [
         path: 'achievements',
         component: AchievementsComponent
       },
+      {
+        path: '',
+        redirectTo: 'personal-information'
+      }
     ]
   }
 ]

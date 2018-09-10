@@ -10,13 +10,14 @@ import { Router } from '@angular/router';
   templateUrl: './personal-information.component.html',
   styleUrls: ['./personal-information.component.scss']
 })
+
 export class PersonalInformationComponent implements OnInit {
   personalInformation: PersonalInformation;
   personalInfoForm: FormGroup;
   submitted: Boolean = false;
   workExpList: FormArray;
   contactDetailList: FormArray;
-  url: String = '';
+  url: String = '/assets/img/avatar.png';
 
   constructor(private createService: CreateService,
     private personalInfoService: PersonalInformationService,
@@ -24,9 +25,11 @@ export class PersonalInformationComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.personalInformation = this.createService.getAttorneyProfile().personalInformation;
-    this.personalInfoForm = this.personalInfoService.createFormGroup(this.personalInformation);
-    console.log(this.personalInfoForm);
+    this.createService.getAttorneyProfile().subscribe(attorney => {
+      console.log(attorney);
+      this.personalInformation = attorney.personalInformation;
+      this.personalInfoForm = this.personalInfoService.createPersonalInfoFormGroup(this.personalInformation);
+    });
   }
 
   get formControls() {
